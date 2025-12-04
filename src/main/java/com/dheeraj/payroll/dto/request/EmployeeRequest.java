@@ -1,19 +1,17 @@
-package com.dheeraj.payroll.payrollmanagementsystem.dto.request;
+package com.dheeraj.payroll.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Schema(
-        name = "Employee Request",
+        name = "EmployeeRequest",
         description = "Schema to hold Employee request information"
 )
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @ToString
 public class EmployeeRequest {

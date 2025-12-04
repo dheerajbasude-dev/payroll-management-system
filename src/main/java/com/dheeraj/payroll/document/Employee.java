@@ -1,4 +1,4 @@
-package document;
+package com.dheeraj.payroll.document;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

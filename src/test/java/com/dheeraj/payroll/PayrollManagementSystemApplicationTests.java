@@ -1,4 +1,4 @@
-package com.dheeraj.payroll.payrollmanagementsystem;
+package com.dheeraj.payroll;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
