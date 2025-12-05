@@ -56,7 +56,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@Valid @PathVariable String id, @RequestBody EmployeeRequest employeeReq) {
         Employee employee = EmployeeMapper.toEntity(employeeReq);
-        return ResponseEntity.ok(employeeService.updateEmployee(employee));
+        return ResponseEntity.ok(employeeService.updateEmployee(id,employee));
     }
 
 

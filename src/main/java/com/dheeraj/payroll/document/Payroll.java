@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 )
 
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Setter
 @Getter
 @ToString
@@ -25,18 +25,18 @@ public class Payroll {
 
     @JsonIgnore
     @Indexed
-    private String employeeId;
+    @NonNull private String employeeId;
 
-    private String payDate;
-    private Double grossSalary;
-    private Double taxAmount;
-    private Double netSalary;
-
-    @JsonIgnore
-    private String payMonth;
+    @NonNull private String payDate;
+    @NonNull private Double grossSalary;
+    @NonNull private Double taxAmount;
+    @NonNull private Double netSalary;
 
     @JsonIgnore
-    private Integer payYear;
+    @NonNull private String payMonth;
+
+    @JsonIgnore
+    @NonNull private Integer payYear;
 
     @Transient
     private Employee employee;

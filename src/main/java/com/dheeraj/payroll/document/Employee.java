@@ -11,10 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
         name = "Employee",
         description = "Schema to hold Employee information"
 )
-
-
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Setter
 @Getter
 @ToString
@@ -23,11 +21,11 @@ public class Employee {
     @Id
     private String id;
 
-    private String name;
-    private Integer age;
-    private String gender;
-    private String designation;
-    private Integer rating;
-    private Double salary;
+    @NonNull private String name;
+    @NonNull private Integer age;
+    @NonNull private String gender;
+    @NonNull private String designation;
+    @NonNull private Integer rating;
+    @NonNull private Double salary;
 
 }
