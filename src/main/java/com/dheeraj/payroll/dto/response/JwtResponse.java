@@ -1,15 +1,15 @@
 package com.dheeraj.payroll.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Schema(
         name = "JwtResponse",
         description = "Schema to hold Jwt token response information"
 )
 @AllArgsConstructor
+@Getter
 public class JwtResponse {
-    @JsonProperty("token")
     private final String token;
 }

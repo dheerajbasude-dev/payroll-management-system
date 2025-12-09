@@ -7,23 +7,21 @@ import com.dheeraj.payroll.repository.PayrollRepository;
 import com.dheeraj.payroll.service.PayrollService;
 import com.dheeraj.payroll.service.SummaryService;
 import com.dheeraj.payroll.utils.PayrollCalculator;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.YearMonth;
 import java.util.List;
 
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class SummaryServiceImpl implements SummaryService {
 
     public final PayrollRepository payrollRepository;
     public final PayrollService payrollService;
-
-    public SummaryServiceImpl(PayrollRepository payrollRepository, PayrollService payrollService) {
-        this.payrollRepository = payrollRepository;
-        this.payrollService = payrollService;
-    }
 
     @Override
     public SummaryResponse getAllSummary() {

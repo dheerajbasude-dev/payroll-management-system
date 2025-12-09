@@ -5,20 +5,18 @@ import com.dheeraj.payroll.exception.EmployeeNotFoundException;
 import com.dheeraj.payroll.repository.EmployeeRepository;
 import com.dheeraj.payroll.service.EmployeeService;
 import com.dheeraj.payroll.utils.PayrollCalculator;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
 
     @Override
     public Employee createEmployee(Employee employee) {
