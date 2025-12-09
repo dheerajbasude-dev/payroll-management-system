@@ -21,7 +21,7 @@ import java.time.YearMonth;
 @AllArgsConstructor
 @Validated
 @RestController
-@RequestMapping("api/summary")
+@RequestMapping("/api/summary")
 public class SummaryController {
 
     private final SummaryService summaryService;

@@ -1,5 +1,8 @@
 package com.dheeraj.payroll.constants;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public enum ApiErrors {
     UNAUTHORIZED_ACCESS("UNAUTHORIZED"),
     BAD_CREDENTIALS("BAD_CREDENTIALS"),
@@ -13,10 +16,6 @@ public enum ApiErrors {
 
 
     private final String apiError;
-
-    ApiErrors(String apiError) {
-        this.apiError = apiError;
-    }
 
     public String apiError() {
         return apiError;

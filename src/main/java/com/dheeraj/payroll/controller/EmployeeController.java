@@ -143,7 +143,7 @@ public class EmployeeController {
                     )
             )
     })
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@Valid @PathVariable String id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
