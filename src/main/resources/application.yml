@@ -5,8 +5,8 @@ spring:
 #Mongodb connection
   data:
     mongodb:
-      uri: "mongodb+srv://dheerajbasude880:hUlbYTIyQaQxgNJL@cluster0.gys14ss.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-      database: "PMS"
+      uri: "${MONGODB_URI}"
+      database: "${DB}"
 
 #Actuator
 management:
@@ -20,9 +20,9 @@ management:
 
 #Jwt security
 jwt:
-  secret: "b0811bb682c92e1af93c11b856b4ffcb1fc8b18050568cbb22f603afe70b4fb6bd25ef5d13df361299a4ca2af8236582d77ea77a33fe5a1839fda7e730620223"
+  secret: "${JWT_SECRET}"
   user:
-    name: Dheeraj23
-    password: "$2a$12$SeR77J8/ubN9l/8SUAkD.ehP9bJHZuvc8s8dKJswVuw2negRHaJKe"
+    name: ${JWT_NAME}
+    password: "${JWT_PASSWORD}"
   token:
     validity: 10800 #3hours
