@@ -5,15 +5,16 @@ import com.dheeraj.payroll.dto.request.EmployeeRequest;
 import com.dheeraj.payroll.mapper.EmployeeMapper;
 import com.dheeraj.payroll.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
+@Tag(name = "Employee")
 @Validated
 @RestController
 @RequestMapping("/api/employees")

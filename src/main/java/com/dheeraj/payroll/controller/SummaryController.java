@@ -3,6 +3,7 @@ package com.dheeraj.payroll.controller;
 import com.dheeraj.payroll.dto.response.SummaryResponse;
 import com.dheeraj.payroll.service.SummaryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -10,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.YearMonth;
 
+@Tag(name = "Summary")
+@Validated
 @RestController
 @RequestMapping("api/summary")
-@Validated
 public class SummaryController {
 
     private final SummaryService summaryService;

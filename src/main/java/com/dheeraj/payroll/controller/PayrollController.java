@@ -2,9 +2,9 @@ package com.dheeraj.payroll.controller;
 
 import com.dheeraj.payroll.document.Payroll;
 import com.dheeraj.payroll.dto.request.PayrollRequest;
-import com.dheeraj.payroll.repository.PayrollRepository;
 import com.dheeraj.payroll.service.PayrollService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,10 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+@Tag(name = "Payroll")
+@Validated
 @RestController
 @RequestMapping("/api/payrolls")
-@Validated
 public class PayrollController {
 
     private final PayrollService payrollService;
