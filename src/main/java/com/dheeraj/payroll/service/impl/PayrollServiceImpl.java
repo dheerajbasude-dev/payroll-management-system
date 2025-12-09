@@ -8,6 +8,7 @@ import com.dheeraj.payroll.repository.PayrollRepository;
 import com.dheeraj.payroll.service.EmployeeService;
 import com.dheeraj.payroll.service.PayrollService;
 import com.dheeraj.payroll.utils.PayrollCalculator;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,18 +16,13 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 @Transactional
 public class PayrollServiceImpl implements PayrollService {
 
     private final PayrollRepository payrollRepository;
     private final EmployeeService employeeService;
-
-    public PayrollServiceImpl(PayrollRepository payrollRepository, EmployeeService employeeService) {
-        this.payrollRepository = payrollRepository;
-        this.employeeService = employeeService;
-    }
-
 
     @Override
     public Payroll createPayroll(String employeeId, LocalDate payDate) {
@@ -53,6 +49,19 @@ public class PayrollServiceImpl implements PayrollService {
     @Override
     public List<Payroll> getAllPayroll() {
         List<Payroll> payrolls = payrollRepository.findAll();
+        fetchEmployeeData(payrolls);
+        return payrolls;
+    }
+
+
+    @Override
+    public List<Payroll> getEmployeePayrollsByEmployeeId(String employeeId) {
+        List<Payroll> payrolls = payrollRepository.findByEmployeeId(employeeId);
+
+        if (payrolls.isEmpty()) {
+            throw new ResourceNotFoundException("No payrolls found for employee " + employeeId);
+        }
+
         fetchEmployeeData(payrolls);
         return payrolls;
     }

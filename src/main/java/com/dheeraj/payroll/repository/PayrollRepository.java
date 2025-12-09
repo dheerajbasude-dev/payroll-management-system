@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface PayrollRepository extends MongoRepository<Payroll,String> {
 
+    List<Payroll> findByEmployeeId(String employeeId);
+
     List<Payroll> findByEmployeeIdAndPayYear(String employeeId, int year);
 
     List<Payroll> findByEmployeeIdAndPayMonthAndPayYear(String employeeId, String month, int year);
@@ -18,4 +20,5 @@ public interface PayrollRepository extends MongoRepository<Payroll,String> {
     List<Payroll> findByPayMonthAndPayYear(String month, int year);
 
     List<Payroll> findByPayDateBetween(String startDate, String endDate);
+
 }

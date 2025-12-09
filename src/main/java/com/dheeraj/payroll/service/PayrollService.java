@@ -12,6 +12,8 @@ public interface PayrollService {
 
     List<Payroll> getAllPayroll();
 
+    List<Payroll> getEmployeePayrollsByEmployeeId(String employeeId);
+
     List<Payroll> getEmployeePayrollsByYear(String employeeId, int year);
 
     List<Payroll> getEmployeePayrollsByYearAndMonth(String employeeId, YearMonth yearMonth);
@@ -21,4 +23,5 @@ public interface PayrollService {
     void fetchEmployeeData(List<Payroll> payrolls);
 
     List<String> extractYearMonth(YearMonth startYM, YearMonth endYM);
+
 }
