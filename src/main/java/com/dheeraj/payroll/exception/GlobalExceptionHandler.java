@@ -54,12 +54,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception, HttpServletRequest request) {
         String traceId = newTraceId();
-        FieldError fieldError = exception.getBindingResult().getFieldError();
-
-        String message = (fieldError != null)
-                ? fieldError.getField() + " " + fieldError.getDefaultMessage()
-                : "Validation failed";
-
+        String message = exception.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).findFirst().orElse("Validation failed");
         LOGGER.warn("[{}] ValidationError: {}", traceId, message);
         return buildResponse(HttpStatus.BAD_REQUEST, ApiErrors.VALIDATION_FAILED, message, request, traceId);
     }
