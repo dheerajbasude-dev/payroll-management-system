@@ -1,7 +1,6 @@
 package com.dheeraj.payroll.service;
 
 import com.dheeraj.payroll.document.Payroll;
-import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -15,9 +14,11 @@ public interface PayrollService {
 
     List<Payroll> getEmployeePayrollsByYear(String employeeId, int year);
 
-    List<Payroll> getEmployeePayrollsByYearAndMonth(String employeeId, YearMonth parse);
+    List<Payroll> getEmployeePayrollsByYearAndMonth(String employeeId, YearMonth yearMonth);
 
-    List<Payroll> getEmployeePayrollsByDatesRange(@Valid String employeeId, YearMonth parse, YearMonth parse1);
+    List<Payroll> getEmployeePayrollsByDatesRange(String employeeId, YearMonth startYM, YearMonth endYM);
 
     void fetchEmployeeData(List<Payroll> payrolls);
+
+    List<String> extractYearMonth(YearMonth startYM, YearMonth endYM);
 }
