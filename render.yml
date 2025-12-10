@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: spring-boot-fast
+    env: docker
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    plan: free
+    envVars:
+      - key: JAVA_OPTS
+        value: "-Xmx512m -Xms256m"
