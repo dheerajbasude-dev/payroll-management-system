@@ -1,6 +1,5 @@
 package com.dheeraj.payroll.security;
 
-import com.dheeraj.payroll.exception.LoginException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -63,12 +62,11 @@ public class JwtTokenUtil {
     public String generateToken(UserDetails userDetails) {
         String username = userDetails.getUsername();
 
-        if (activeTokens.containsKey(username)) {
-            String existingToken = activeTokens.get(username);
-            if (!isTokenExpired(existingToken)) {
-                throw new LoginException("User already logged in.", existingToken);
-            }
-        }
+        // Do NOT block login if token already exists — allow multiple sessions
+
+        // If user logs in again → invalidate previous token
+        activeTokens.remove(username);
+
 
         Map<String, Object> claims = new HashMap<>();
         String token = doGenerateToken(claims, username);

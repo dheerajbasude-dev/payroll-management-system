@@ -16,10 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -64,6 +61,32 @@ public class AuthenticationController {
         URI location = URI.create("/api/auth/token/");
         return ResponseEntity.created(location).body(new JwtResponse(token));
     }
+
+    @Operation(
+            summary = "Logout to API",
+            description = "Logout to get access to the API"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status Ok"
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "HTTP Status Unauthorize error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String auth) {
+        if (auth != null && auth.startsWith("Bearer ")) {
+            jwtTokenUtil.invalidateToken(auth.substring(7));
+        }
+        return ResponseEntity.ok("Logged out");
+    }
+
 
     private void authenticate(String username, String password){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
