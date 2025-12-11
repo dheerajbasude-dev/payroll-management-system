@@ -27,6 +27,7 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
+
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtRequestFilter jwtRequestFilter;
 
@@ -40,23 +41,26 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // --------------------------------------------
+    // 🔥 FINAL Production Security Filter Chain
+    // --------------------------------------------
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)  // Spring Security 6 syntax
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Enable CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/api/auth/token",
+                                "/api/auth/**",
                                 "/actuator/**"
-                        )
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
-                .exceptionHandling(exception -> exception
+                .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
                 .sessionManagement(session -> session
@@ -65,23 +69,38 @@ public class WebSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable);
 
+        // JWT filter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
+    // --------------------------------------------
+    // 🔥 FINAL WORKING CORS CONFIG FOR RENDER + JWT
+    // --------------------------------------------
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://payroll-management-system-ntwn.onrender.com","http://localhost:5173"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Allows dynamic Render domains + localhost
+        configuration.setAllowedOriginPatterns(List.of(
+                "http://localhost:5173",
+                "https://payroll-management-system-ntwn.onrender.com",
+                "https://*.onrender.com"     // important for Render's proxy system
+        ));
+
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
+
+        // For sending Authorization header back to frontend
+        configuration.setExposedHeaders(List.of("Authorization"));
+
+        // Allow cookies/Authorization header
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
-
-
 }
