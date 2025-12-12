@@ -86,6 +86,7 @@ public class WebSecurityConfig {
         configuration.setAllowedOriginPatterns(List.of(
                 "http://localhost:5173",
                 "https://payroll-management-system-ntwn.onrender.com",
+                "https://payroll-management-systemapp.vercel.app",
                 "https://*.onrender.com"     // important for Render's proxy system
         ));
 
